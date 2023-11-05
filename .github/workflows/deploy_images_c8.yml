@@ -4,22 +4,31 @@ on:
   workflow_dispatch:
     inputs:
       push_image:
-        description: "Push to DockerHub"
+        description: Push to DockerHub
         type: boolean
         default: false
 
       specific_job:
-        description: "Specific job to run"
+        description: Specific job to run
         type: choice
-        default: "none"
+        default: none
         options:
-          - "none"
+          - none
           - py37
           - py38
           - py39
           - py310
           - py311
           - py312
+
+      platforms:
+        description: Platforms to build for
+        type: choice
+        default: linux/amd64,linux/arm64
+        options:
+          - linux/amd64,linux/arm64
+          - linux/amd64
+          - linux/arm64
 
 jobs:
   c8-py37:
@@ -37,6 +46,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py37
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py37
           push_image: ${{ github.event.inputs.push_image == 'true' }}
 
@@ -55,6 +65,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py38
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py38
           push_image: ${{ github.event.inputs.push_image == 'true' }}
 
@@ -73,6 +84,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py39
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py39
           push_image: ${{ github.event.inputs.push_image == 'true' }}
 
@@ -91,6 +103,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py310
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py310
           push_image: ${{ github.event.inputs.push_image == 'true' }}
 
@@ -109,6 +122,7 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py311
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py311
           push_image: ${{ github.event.inputs.push_image == 'true' }}
 
@@ -127,5 +141,6 @@ jobs:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           docker_file: docker/Dockerfile_centos8_py312
+          platforms: ${{ github.event.inputs.platforms }}
           tags: riga/law:c8-py312,riga/law:c8-py3,riga/law:c8
           push_image: ${{ github.event.inputs.push_image == 'true' }}
