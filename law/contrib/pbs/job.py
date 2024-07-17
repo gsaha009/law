@@ -517,8 +517,8 @@ class PbsJobFileFactory(BaseJobFileFactory):
         if not isinstance(args, (list, tuple)):
             return args.strip()
         elif len(args) == 1:
-            return "#SBATCH --{}".format(*map(_str, args))
+            return "#QSUB --{}".format(*map(_str, args))
         elif len(args) == 2:
-            return "#SBATCH --{}={}".format(*map(_str, args))
+            return "#QSUB --{}={}".format(*map(_str, args))
         else:
             raise Exception("cannot create job file line from '{}'".format(args))

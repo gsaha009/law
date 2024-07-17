@@ -42,6 +42,7 @@ class PbsWorkflowProxy(BaseRemoteWorkflowProxy):
         return self.task.pbs_create_job_file_factory(**kwargs)
 
     def create_job_file(self, job_num, branches):
+        print("inside create_job_file")
         task = self.task
 
         # the file postfix is pythonic range made from branches, e.g. [0, 1, 2, 4] -> "_0To5"
